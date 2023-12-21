@@ -12,12 +12,12 @@ const stylesHandler = MiniCssExtractPlugin.loader;
 
 
 const config = {
-    entry:  [
-        './src/index.js',
-        './src/css/style.scss',
-    ],
+    entry: {
+        main: './src/index.js',
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
+        clean: true,
     },
     devServer: {
         open: true,
@@ -25,12 +25,13 @@ const config = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/html/index.html' ,
+            filename: "index.html",
+            template: './src/html/index.html',
         }),
-        new MiniCssExtractPlugin(),
-
-        // Add your plugins here
-        // Learn more about plugins from https://webpack.js.org/configuration/plugins/
+        new MiniCssExtractPlugin({
+            filename: "css/[name].css",
+        }
+        ),
     ],
     module: {
         rules: [
@@ -60,8 +61,8 @@ const config = {
 module.exports = () => {
     if (isProduction) {
         config.mode = 'production';
-        
-        
+
+
     } else {
         config.mode = 'development';
     }
