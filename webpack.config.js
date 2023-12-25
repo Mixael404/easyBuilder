@@ -17,11 +17,12 @@ const config = {
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        clean: true,
+        clean: isProduction,
     },
     devServer: {
         open: true,
         host: 'localhost',
+        hot: true,
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -50,6 +51,13 @@ const config = {
             {
                 test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
                 type: 'asset',
+                generator : {
+                    filename : 'assets/[name][ext]',
+                }
+            },
+            {
+                test: /\.html$/i,
+                loader: "html-loader",
             },
 
             // Add your rules for custom modules here
